@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="autodijagnostika">
+  <meta name="author" content="">
+  <title>TSF Pools</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,400;1,500;1,700&display=swap"
+    rel="stylesheet">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/font-awesome.min.css" rel="stylesheet">
+  <link href="css/animate.min.css" rel="stylesheet">
+  <link href="css/owl.carousel.css" rel="stylesheet">
+  <link href="css/owl.transitions.css" rel="stylesheet">
+  <link href="css/prettyPhoto.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/data.js"></script>
+  <script src="https://code.highcharts.com/modules/drilldown.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+  <!-- <link rel="shortcut icon" href="images/ico/favicon.ico"> -->
+</head>
+<body id="home">
+  <section id="mainSection">
+    <div class="container text-center">
+      <div class="mainDiv">
+        <h1>TSF POOLS</h1>
+      </div>
+      <div class="space"></div>
+      <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+          <div class="boxi">Last Block:
+            <br>
+            <p id="blockNumber">0</p>
+
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+          <div class="boxi">Network Diff:
+            <br>
+            <p id="networkDiff">0</p>
+
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+          <div class="boxi">Circulating Supply:
+            <br>
+            <p id="circulatingSupply">0</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="space"></div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <table>
+            <thead>
+              <tr>
+                <th>Pool
+                <th>Hashrate
+                <th>Miners online
+            </thead>
+            <tbody>
+              <tr>
+                <td style="color: #4287e2;">tsfpool.xyz
+                <td id="hashrate_prop">
+                <td id="miner_prop"></td>
+              </tr>
+              <tr>
+                <td style="color: #8b25e2;">eu.tsfpool.com</td>
+                <td>
+                  <p id="pplnsHashrate"></p>
+                </td>
+                <td>
+                  <p id="pplnsMiners"></p>
+                </td>
+              </tr> 
+              <tr>
+                <td style="color: #b9b4ffad;">de.tsfpool.com
+                <td id="deHashrate"></td>
+                <td id="deMiners"></td>
+              </tr>
+              <tr>
+                <td style="color: #ff7308;">zergpool.com
+                <td id="zergHashrate"></td>
+                <td id="zergMiners">6</td>
+              </tr>
+              <tr>
+                <td style="color: #e24242;">aikapool.com
+                <td id="aikaHashrate"></td>
+                <td id="minersAika">?</td>
+              </tr>
+              <tr>
+                <td style="color: #4287e2;">comining.io
+                <td id="coHashrate"></td>
+                <td id="minersCo"></td>
+              </tr>
+              <tr>
+                <td style="color: #42e285;">coolpool.top (SOLO)
+                <td id="coHashrate1"></td>
+                <td id="coMiners"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+    </div>
+    <div style="margin-top: 60px;"></div>
+    <figure class="highcharts-figure">
+      <div id="container"></div>
+    </figure>
+    <div class="terms" style="text-align: center; margin-top: 20px;">
+      <a href="http://libertasgh.com/assets/pdf/Website%20Terms%20and%20Conditions%20and%20Privacy%20Policy.pdf" target="_blank">terms and conditions &amp; privacy policy</a>
+    </div>
+  </section>
+  
+  <script src="js/jquery.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/mousescroll.js"></script>
+  <script src="js/jquery.prettyPhoto.js"></script>
+  <script src="js/jquery.isotope.min.js"></script>
+  <script src="js/jquery.inview.min.js"></script>
+  <script src="js/wow.min.js"></script>
+  <script src="js/contact.js"></script>
+  <script src="js/custom-scripts.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.22.0/axios.min.js" integrity="sha512-m2ssMAtdCEYGWXQ8hXVG4Q39uKYtbfaJL5QMTbhl2kc6vYyubrKHhr6aLLXW4ITeXSywQLn1AhsAaqrJl8Acfg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+    jQuery(document).ready(function ($) {
+      // setInterval(function () {
+      jQuery.ajax({
+        type: 'GET',
+        url: 'https://explorer.tsf-platform.com/api/v1/network/stats',
+        dataType: 'json',
+        success: function (response) {
+          let responsefromExplorer = response;
+          console.log(responsefromExplorer);
+          let blockNumber = responsefromExplorer[0].number;
+          console.log(blockNumber);
+          jQuery("#blockNumber").html(blockNumber);
+          let networkDiff = responsefromExplorer[0].difficulty;
+          console.log(networkDiff);
+          jQuery("#networkDiff").html(networkDiff);
+          let circulatingSupply = responsefromExplorer[0].circulatingSupply;
+          console.log(circulatingSupply);
+          jQuery("#circulatingSupply").html(circulatingSupply);
+        },
+        error: function (jqXHR, textStatus) {
+          console.log(textStatus);
+        }
+      });
+      //////////////PROP
+      jQuery.ajax({
+        type: 'GET',
+        url: 'http://tsfpool.xyz/api/stats',
+        dataType: 'json',
+        success: function (response) {
+          let responseProp = response;
+          console.log(responseProp);
+          let tsfhashrate = responseProp.hashrate;
+          tsfhashrate = (tsfhashrate / 1000000000).toFixed(3);
+          jQuery("#hashrate_prop").html(tsfhashrate + " GH");
+          console.log((tsfhashrate / 1000000000).toFixed(3));
+          let lastBlockFound = responseProp.nodes[0].lastBeat;
+          console.log(lastBlockFound);
+          jQuery("#lastBeat").html(lastBlockFound);
+          let minersOnline = responseProp.minersTotal;
+          console.log(minersOnline);
+          jQuery("#miner_prop").html(minersOnline);
+        },
+        error: function (jqXHR, textStatus) {
+          console.log(textStatus);
+        }
+      });
+
+
+      //////////PPLNS
+      jQuery.ajax({
+        type: 'GET',
+        url: 'http://eu.tsfpool.com/api/stats',
+        dataType: 'json',
+        success: function (response) {
+          let responsePplns = response;
+          console.log(responsePplns);
+          let pplnsHashrate = responsePplns.hashrate;
+          pplnsHashrate = (pplnsHashrate / 1000000000).toFixed(3);
+          jQuery("#pplnsHashrate").html(pplnsHashrate + " GH");
+          console.log((pplnsHashrate / 1000000000).toFixed(3));
+          let blocksPplns = responsePplns.nodes[0].lastBeat;
+          console.log(blocksPplns);
+          jQuery("#lastBlocks").html(blocksPplns);
+          let minersPplns = responsePplns.minersTotal;
+          console.log(minersPplns);
+          jQuery("#pplnsMiners").html(minersPplns);
+        },
+        error: function (jqXHR, textStatus) {
+          console.log(textStatus);
+        }
+      });
+     
+      jQuery.ajax({
+        type: 'GET',
+        url: 'http://de.tsfpool.com/api/stats',
+        dataType: 'json',
+        success: function (response) {
+          let responseDe = response;
+          console.log(responseDe);
+          let deHashrate = responseDe.hashrate;
+          deHashrate = (deHashrate / 1000000000).toFixed(3);
+          jQuery("#deHashrate").html(deHashrate + " GH");
+          console.log((deHashrate / 1000000000).toFixed(3));
+          let blocksDe = responseDe.nodes[0].lastBeat;
+          console.log(blocksDe);
+          jQuery("#lastBlocks1").html(blocksDe);
+          let minersDe = responseDe.minersTotal;
+          console.log(minersDe);
+          jQuery("#deMiners").html(minersDe);
+        },
+        error: function (jqXHR, textStatus) {
+          console.log(textStatus);
+        }
+      });
+
+      jQuery.ajax({
+        type: 'GET',
+        url: 'https://coolpool.top/api/coin/tsfSolo?type=solo',
+        dataType: 'json',
+        success: function (response) {
+          let responseCo = response;
+          console.log(responseCo);
+          let coHashrate = responseCo.coin.poolHashrate.value;
+          console.log(coHashrate);
+          jQuery("#coHashrate1").html(coHashrate + " GH");
+          let minersCo = responseCo.coin.minersTotal;
+          console.log(minersCo);
+          jQuery("#coMiners").html(minersCo);
+        },
+        error: function (jqXHR, textStatus) {
+          console.log(textStatus);
+        }
+      });
+
+
+      jQuery.ajax({
+        type: 'GET',
+        url: 'http://api.zergpool.com:8080/api/currencies',
+        dataType: 'json',
+        success: function (response) {
+          let zergHash = response;
+          console.log(zergHash);
+          let zergHashrate = zergHash.TSF.hashrate;
+          zergHashrate = (zergHashrate / 1000000000).toFixed(3);
+          jQuery("#zergHashrate").html(zergHashrate + " GH");
+          console.log((zergHashrate / 1000000000).toFixed(3));
+          let blocksZerg = zergHash.TSF.lastblock;
+          console.log(blocksZerg);
+          jQuery("#lastBlocks2").html(blocksZerg);
+          let minersZerg = zergHash.minersTotal;
+          console.log(minersZerg);
+          jQuery("#zergMiners").html(minersZerg);
+        },
+        error: function (jqXHR, textStatus) {
+          console.log(textStatus);
+        }
+      });
+
+
+
+      jQuery.ajax({
+        type: 'GET',
+        url: 'https://aikapool.com/tsf/index.php?page=api&action=getpoolstatus&api_key=',
+        dataType: 'json',
+        success: function (response) {
+          let aikaHash = response;
+          console.log(aikaHash);
+          let aikaHashrate = response.getpoolstatus.data.hashrate;
+          aikaHashrate = (aikaHashrate / 1000000).toFixed(3);
+          jQuery("#aikaHashrate").html(aikaHashrate + " GH");
+          console.log((aikaHashrate / 1000000000).toFixed(3));
+          let blocksAika = response.getpoolstatus.data.lastblock;
+          console.log(blocksAika);
+          jQuery("#lastBlocks3").html(blocksAika);
+          let minersAika = response.getpoolstatus.data.workers;
+          console.log(minersAika);
+          jQuery("#minersAika").html(minersAika);
+        },
+        error: function (jqXHR, textStatus) {
+          console.log(textStatus);
+        }
+      });
+
+    });
+
+    const callPoolApi = async () => {
+      const data = {
+          "method": "coins_list"
+      };
+      const options = {
+          headers: {
+              'Content-Type': 'application/json',
+          }
+      };
+      try {
+          const [comining] = await Promise.all([
+              axios.post('https://api.comining.io/?key=XSv4XD3UJd9y5mDd7uwF66B', data, options)
+              .then(res => {
+                console.log(res);
+                  const allCominingArr = res.data.data;
+                  for (let i = 0; i < allCominingArr.length; i++) {
+                      let coin = allCominingArr[i].coin;
+                      if (coin == 'TSF') {
+                          let cominingPool = parseFloat(allCominingArr[i].workersHashrate);
+                          console.log(cominingPool);
+                          let hashrate = (cominingPool / 1000 / 1000 / 10000).toFixed(2);
+                          document.getElementById("coHashrate").innerHTML = hashrate + " GH";
+                          console.log(hashrate);
+                          let workers = allCominingArr[i].workersCount;
+                          document.getElementById("minersCo").innerHTML = workers;
+                          let blockFound = allCominingArr[i];
+                          console.log(blockFound);
+                      }
+                  }
+              })
+              .catch(error => {
+                  console.error(error);
+                  return {
+                      poolname: "comining",
+                      poolhashrate: 0
+                  }
+              })
+          ]);
+          const allTsfPools = [comining];
+      } catch (error) {
+          console.log("can not callPoolApi", error);
+      }
+    } 
+    callPoolApi();
+  </script>
+  <script>
+     const callGraph = async () => {
+      try {
+        const graphData = await axios.get('https://explorer.tsf-platform.com/api/v1/block/graph/pools');
+        return graphData;
+      } catch (error) {
+          console.log("can not callPoolApi", error);
+      }
+     }
+     
+     const startChart = async () => {
+      var chartData = await callGraph();
+      console.log(chartData.data);
+      Highcharts.chart('container', {
+        chart: {
+          plotBackgroundColor: null,
+          plotBorderWidth: null,
+          plotShadow: false,
+          type: 'pie'
+        },
+        title: {
+          text:'Top Miners ( Last 500 Blocks)'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.y}</b><br>address: <b>{point.miner}</b>'
+
+        },
+        plotOptions: {
+          pie: {
+            colors: ['#ff9400', '#4287e2', '#1b3156', '#63D7C0', '#cd3292', '#0076ba', '#0f0', '#954a97', '#b7b7b6' ],
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                style: {
+                    color: 'black'
+                },
+                connectorColor: 'silver'
+            }
+          }
+        },
+        series: [{
+          name: 'Mined blocks',
+          data: chartData.data
+        }]  
+    }); 
+  } 
+  startChart();
+//     pieChartData: Ember.computed('model', {
+
+//       get() {
+//             let mini = this.get('model.6.mini');
+        
+          
+    
+//     var pieChartData = [{
+//         type: 'pie',
+        
+      
+//         name: 'Mined blocks',
+//         data: mini
+
+//     }] 
+//     return pieChartData;
+//   }
+// })
+  </script>
+  
+</body>
+
+</html>
