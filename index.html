@@ -88,11 +88,11 @@
                 <th>Miners online
             </thead>
             <tbody>
-              <tr>
+              <!-- <tr>
                 <td style="color: #4287e2;">tsfpool.xyz
                 <td id="hashrate_prop">
                 <td id="miner_prop"></td>
-              </tr>
+              </tr> -->
               <tr>
                 <td style="color: #8b25e2;">eu.tsfpool.com</td>
                 <td>
@@ -271,28 +271,28 @@
         }
       });
       //////////////PROP
-      jQuery.ajax({
-        type: 'GET',
-        url: 'http://tsfpool.xyz/api/stats',
-        dataType: 'json',
-        success: function (response) {
-          let responseProp = response;
-          console.log(responseProp);
-          let tsfhashrate = responseProp.hashrate;
-          tsfhashrate = (tsfhashrate / 1000000000).toFixed(3);
-          jQuery("#hashrate_prop").html(tsfhashrate + " GH");
-          console.log((tsfhashrate / 1000000000).toFixed(3));
-          let lastBlockFound = responseProp.nodes[0].lastBeat;
-          console.log(lastBlockFound);
-          jQuery("#lastBeat").html(lastBlockFound);
-          let minersOnline = responseProp.minersTotal;
-          console.log(minersOnline);
-          jQuery("#miner_prop").html(minersOnline);
-        },
-        error: function (jqXHR, textStatus) {
-          console.log(textStatus);
-        }
-      });
+      // jQuery.ajax({
+      //   type: 'GET',
+      //   url: 'http://tsfpool.xyz/api/stats',
+      //   dataType: 'json',
+      //   success: function (response) {
+      //     let responseProp = response;
+      //     console.log(responseProp);
+      //     let tsfhashrate = responseProp.hashrate;
+      //     tsfhashrate = (tsfhashrate / 1000000000).toFixed(3);
+      //     jQuery("#hashrate_prop").html(tsfhashrate + " GH");
+      //     console.log((tsfhashrate / 1000000000).toFixed(3));
+      //     let lastBlockFound = responseProp.nodes[0].lastBeat;
+      //     console.log(lastBlockFound);
+      //     jQuery("#lastBeat").html(lastBlockFound);
+      //     let minersOnline = responseProp.minersTotal;
+      //     console.log(minersOnline);
+      //     jQuery("#miner_prop").html(minersOnline);
+      //   },
+      //   error: function (jqXHR, textStatus) {
+      //     console.log(textStatus);
+      //   }
+      // });
 
 
       //////////PPLNS
