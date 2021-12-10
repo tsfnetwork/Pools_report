@@ -155,11 +155,11 @@
       <div class="col-md-4">
         <div class="explainW">
           <h3 style="color: #ff9400; text-align: center; padding-bottom: 20px;">PROP pool reward method</h3>
-          <p style="padding: 0 15px; text-align: center; margin-top: 20px; padding-bottom: 30px; color: black;">Solo or single mode is the very first mining mode to appear even before the pools appear. Solo mode implies an independent launch of cryptocurrency nodes and organization of mining using its own resources. At the same time, the reward for the found block goes entirely to one miner.
-            What do you have pools here, you ask, and despite the fact that launching your own node and connecting all capacities to it is not the easiest task, therefore many miners who have enough large capacity to work in Solo mode prefer to connect to already working pools (nodes), that provide Solo mode mining, taking a small percentage of this service.
-            Those. Solo pool is a rare type of pool in which the whole award goes only to one miner who found the block in the network.
-            An example of this approach is solopool.org with solo mining support for more than 40 cryptocurrencies.
-            For beginner miners such pools are absolutely not suitable, because the mathematical expectation of finding a block on popular cryptocurrencies can take more than a year.</p>
+          <p style="padding: 0 15px; text-align: center; margin-top: 20px; padding-bottom: 30px; color: black;">Proportional is the simplest reward system. Rewards come from “rounds” – the time between one block found by the pool and the next. You are rewarded for the shares you submit in proportion to all shares submitted during each round.
+            For example, if the shares you submit during a round account for 50% of the total shares, then your reward is 50% of the block reward. The proportional system is the easiest reward system to understand and implement. PPLNS stands for Pay-Per-Last-N-Shares and is more complicated and difficult to implement than Proportional but it solves some of its main problems.
+            The payments of PPLNS are based on rounds just like in Proportional. However, PPLNS does not consider the boundaries of the start of the round or previous rounds when selecting which shares will be considered.PPLNS works by selecting shares backwards starting from when a block is found and ending after shares add up to an amount called “N”, or the PPLNS "window". Typically, the network difficulty determines this N amount.
+
+          </p>
         </div>
       </div>
       <div class="col-md-4">
@@ -168,7 +168,8 @@
           <p style="padding: 0 15px; text-align: center; margin-top: 20px; padding-bottom: 30px; color: rgb(255, 255, 255);">PPLNS The second most popular method of calculating miner remuneration on par with PPS. Payments for PPLNS per round are similar to PROP, i.e. It is charged in proportion to the received shares, but with one big difference. For example, the PPLNS payment pool indicates that a 2000 share is taken for calculation. Therefore, with such a pool, the first 2,000 shares of your calculated power to receive a reward will gradually increase from 0 to the maximum possible your hashrate. Only after receiving from you the first 2000 share, the pool will accrue the reward for the share in full. To compensate for the "slow start" on the pools with PPLNS, the reward will continue to accrue after another 2,000 shares are disconnected from the pool with a gradual decrease to 0.
             The number of shares used to calculate PPLNS is different for all pools and strongly depends on cryptocurrency.
             PPLNS stimulates miners for long-term continuous mining and completely eliminates Pool Hopping.
-            It is recommended to choose a pool with PPLNS for miners with high and average computing power.</p>
+            It is recommended to choose a pool with PPLNS for miners with high and average computing power.
+          </p>
       </div>
       <div class="marginB"></div>
     </div>
